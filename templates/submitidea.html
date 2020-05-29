@@ -1,0 +1,91 @@
+{% extends 'layout.html' %}
+{% block title %}
+    <title>ALL TIMELINE</title>
+{% endblock %}
+{% block body %}
+    <!-- Top bar -->
+    <div class='row bg-light text-white p-2'>
+        <div class="col-4">
+            <img src="../static/images/SKI_bar2.png" height='60' class='ml-2' >
+        </div>
+        <div class="col-6 align-middle">
+            <form action="/searchresult" method="POST" >
+                <input type="text" name=tag placeholder="#Search Problem and Idea" class="form-control w-50  mx-auto mt-3">
+            </form>
+        </div>
+        <div class="float-right text-right mt-2 col-2">
+            <a href="/myaccount/{{user.id}}">
+                <i class="fas fa-house-user m-2 text-secondary" style='font-size:30px'></i>
+            </a>
+            <a href="/logout">
+                <i class="fas fa-sign-out-alt m-2 text-secondary" style='font-size:30px'></i>
+            </a>
+        </div>
+    </div>
+    <!-- Left menu bar -->
+    <div class="row" style='height: 100vh;'>
+        <div class='card col-2 bg-secondary rounded-0'>
+            <div class="row">
+                <img src="../static/images/{{user.avator}}" alt="" class='rounded-circle mx-auto d-block mt-3' height=70 width="70">
+            </div>
+            <div class="row text-center">
+                <a href="/editProf" class='text-white col-12'>
+                    <strong style='font-size:25px' class=''>
+                        {{signin.uname|upper}}<br>
+                    </strong>
+                </a>
+                <a href="/timeline" class='btn text-white col-12 mt-3'>Timeline</a><br>
+                <a href="/submission" class='btn text-white col-12'>Submit Problem</a><br>
+                <a href="/ski" class='btn text-white col-12'>About SKI</a><br>
+            </div>
+        </div>
+        <!-- main screen -->
+        <div class='col-10 bg-light'>
+            <div class="card">
+                <div class="card-header"> 
+                    <h1>#{{problem.p_title}}</h1>
+                    <h3>{{problem.p_main}}</h3>
+                </div>
+                <div class="card-body">
+                    <h2>Share Your Idea</h2>
+                    <form action="/submitidea/{{problem.id}}" method='post'>
+                        <textarea name="idea" id="" cols="50" rows="5" placeholder="Please enter your idea to solve the problem" class="form-control w-75 mx-auto mt-4 mb-4"></textarea>
+                        <input type="submit" value="SHARE" class="form-control btn btn-block btn-secondary w-50 mb-4 mx-auto">
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <h4>Ideas</h4>
+                    <table class="table table-striped">
+                        {% for i in idea %}
+                            <tr class="bg-secondary text-white">
+                                <th>Researcher</th>
+                                <th>Idea</th>
+                            </tr>
+                            <tr class="bg-secondary text-white">
+                                <td><a href="/myaccount/{{i.u_id}}">{{i.uname}}</a></td>
+                                <td>
+                                    {{i.idea}}<br>
+                                    <form action="/submitcomment/{{i.id}}/{{problem.id}}" method='post'>
+                                        <input type="text" name="comment" placeholder="Add Comment" class="form-control w-50">
+                                    </form>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Viewer</th>
+                                <th>Comment</th>
+                            </tr>
+                            {% for c in comment %}
+                                {% if c.i_id == i.id %}
+                                    <tr>
+                                        <td><a href="/myaccount/{{c.u_id}}">{{c.uname}}</a></td>
+                                        <td>{{c.comment}}</td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                     </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

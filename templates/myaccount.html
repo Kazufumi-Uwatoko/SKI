@@ -1,0 +1,105 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>MY ACCOUNT</title>
+{% endblock %}
+
+{% block body %}
+    <!-- Top bar -->
+    <div class='row bg-light text-white p-2'>
+        <div class="col-4">
+            <img src="../static/images/SKI_bar2.png" height='60' class='ml-2' >
+        </div>
+        <div class="col-6 align-middle">
+            <form action="/searchresult" method="POST" >
+                <input type="text" name=tag placeholder="#Search Problem and Idea" class="form-control w-50  mx-auto mt-3">
+            </form>
+        </div>
+        <div class="float-right text-right mt-2 col-2">
+            <a href="/myaccount/{{user.id}}">
+                <i class="fas fa-house-user m-2 text-secondary" style='font-size:30px'></i>
+            </a>
+            <a href="/logout">
+                <i class="fas fa-sign-out-alt m-2 text-secondary" style='font-size:30px'></i>
+            </a>
+        </div>
+    </div>
+    <!-- Left menu bar -->
+    <div class="row" style='height: 100vh;'>
+        <div class='card col-2 bg-secondary rounded-0'>
+            <div class="row">
+                <img src="../static/images/{{user.avator}}" alt="" class='rounded-circle mx-auto d-block mt-3' height=70 width="70">
+            </div>
+            <div class="row text-center">
+                <a href="/editProf" class='text-white col-12'>
+                    <strong style='font-size:25px' class=''>
+                        {{signin.uname|upper}}<br>
+                    </strong>
+                </a>
+                <a href="/timeline" class='btn text-white col-12 mt-3'>Timeline</a><br>
+                <a href="/submission" class='btn text-white col-12'>Submit Problem</a><br>
+                <a href="/ski" class='btn text-white col-12'>About SKI</a><br>
+            </div>
+        </div>
+    <!-- main screen -->
+    <div class='col-10 bg-light'>
+        <div class='row'>
+            <img src="../static/images/{{account.avator}}" alt="" height=200 width="200" class='rounded-circle btn mx-auto'><br>
+        </div>
+        <h2 class="text-center">{{account.uname|upper}}</h2>
+        <h2 class="text-center">Major: {{account.major}}</h2>
+        <h2>PROBLEMS</h2>
+        <table class="table table-striped" style="table-layout: fixed;">
+            <tr>
+                <th style="width: 200px;">Title</th>
+                <th >Problem</th>
+            </tr>
+            {% for p in problem %}
+                <tr>
+                    <td class="align-middle" style="word-wrap: break-word; font-size: 16px;"><a href='/submitidea/{{p.id}}'>#{{p.p_title}}</a></td>
+                    <td class="align-middle mx-auto" style="word-wrap: break-word; font-size: 16px;">
+                        {{p.p_main}}<br>
+                        <a href='/submitidea/{{p.id}}' class='text-center'>
+                            <i class="far fa-lightbulb mt-3 mr-3" style="font-size: 13px;"> Add Idea</i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <h2>IDEAS</h2>
+        <table class="table table-striped" style="table-layout: fixed;">
+            <tr class="">
+                <th style="width: 200px;">Problem Title</th>
+                <th >Idea</th>
+            </tr>
+            {% for i in idea %}
+                <tr>
+                    <td class="align-middle" style="word-wrap: break-word; font-size: 16px;"><a href="/submitidea/{{i.p_id}}">{{i.p_title}}</a></td>
+                    <td class="align-middle" style="word-wrap: break-word; font-size: 16px;">
+                        {{i.idea}}<br>
+                        <a href='/submitidea/{{i.p_id}}' class='text-center'>
+                            <i class="far fa-comment mt-3" style="font-size: 14px;"> Add Comment</i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <h2>COMMENTS</h2>
+        <table class="table table-striped" style="table-layout: fixed;">
+            <tr class="">
+                <th style="width: 200px;">Problem Title</th>
+                <th style="width: 200px;">Idea</th>
+                <th >Comment</th>
+            </tr>
+            {% for c in comment %}
+                <tr>
+                    <td class="align-middle" style="word-wrap: break-word; font-size: 16px;"><a href="/submitidea/{{c.p_id}}">#{{c.p_title}}</a></td>
+                    <td class="align-middle" style="word-wrap: break-word; font-size: 16px;"><a href="/submitidea/{{c.p_id}}">{{c.idea}}</a></td>
+                    <td class="align-middle mx-auto" style="word-wrap: break-word; font-size: 16px;">
+                        {{c.comment}}<br>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

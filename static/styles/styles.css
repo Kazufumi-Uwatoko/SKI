@@ -1,0 +1,12 @@
+.bg{
+    background-image: url('../images/SKI_logo.jpg') ;
+    /* background-size: cover; */
+    background-position: center;
+    /* position: relative; */
+}
+.card_menu{
+    height: max-content;
+}
+.img_bar{
+    height: 50px;
+}

@@ -1,0 +1,78 @@
+{% extends 'layout.html' %}
+{% block title %}
+    <title>ALL TIMELINE</title>
+{% endblock %}
+{% block body %}
+    <!-- Top bar -->
+    <div class='row bg-light text-white p-2'>
+        <div class="col-4">
+            <img src="../static/images/SKI_bar2.png" height='60' class='ml-2' >
+        </div>
+        <div class="col-6 align-middle">
+            <form action="/searchresult" method="POST" >
+                <input type="text" name=tag placeholder="#Search Problem and Idea" class="form-control w-50  mx-auto mt-3">
+            </form>
+        </div>
+        <div class="float-right text-right mt-2 col-2">
+            <a href="/myaccount/{{user.id}}">
+                <i class="fas fa-house-user m-2 text-secondary" style='font-size:30px'></i>
+            </a>
+            <a href="/logout">
+                <i class="fas fa-sign-out-alt m-2 text-secondary" style='font-size:30px'></i>
+            </a>
+        </div>
+    </div>
+    <!-- Left menu bar -->
+    <div class="row" style='height: 100vh;'>
+        <div class='card col-2 bg-secondary rounded-0'>
+            <div class="row">
+                <img src="../static/images/{{user.avator}}" alt="" class='rounded-circle mx-auto d-block mt-3' height=70 width="70">
+            </div>
+            <div class="row text-center">
+                <a href="/editProf" class='text-white col-12'>
+                    <strong style='font-size:25px' class=''>
+                        {{signin.uname|upper}}<br>
+                    </strong>
+                </a>
+                <a href="/timeline" class='btn text-white col-12 mt-3'>Timeline</a><br>
+                <a href="/submission" class='btn text-white col-12'>Submit Problem</a><br>
+                <a href="/ski" class='btn text-white col-12'>About SKI</a><br>
+            </div>
+        </div>
+        <!-- main screen -->
+        <div class='col-10 bg-light'>
+            <table class="table table-striped" style="table-layout: fixed;">
+                <tr>
+                    <th  class='text-center' colspan=2 style="width: 150px;">Investor</th>
+                    <th style="width: 200px;">Title</th>
+                    <th >Problem</th>
+                </tr>
+                {% for p in problem %}
+                    <tr>
+                        <td class="align-middle">
+                            <a href="/myaccount/{{p.u_id}}" >
+                                <img src="../static/images/{{p.avator}}" alt="" class='rounded-circle float-right' height="40" width="40">
+                            </a>
+                        </td>
+                        <td class="align-middle">
+                            <a href="/myaccount/{{p.u_id}}" class="float-left">
+                                {{p.uname}}
+                            </a>
+                        </td>
+                        <td class="align-middle" style="word-wrap: break-word; font-size: 16px;">
+                            <a href="/submitidea/{{p.id}}">
+                                #{{p.p_title}}
+                            </a>
+                        </td>
+                        <td class="align-middle mx-auto" style="word-wrap: break-word; font-size: 16px;">
+                            {{p.p_main}}<br>
+                            <a href='/submitidea/{{p.id}}' class='text-center'>
+                                <i class="far fa-lightbulb mr-3 mt-3" style="font-size: 14px;"> Add Idea</i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

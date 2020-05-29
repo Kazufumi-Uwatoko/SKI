@@ -1,0 +1,74 @@
+{% extends 'layout.html' %}
+{% block title %}
+    <title>ALL TIMELINE</title>
+{% endblock %}
+{% block body %}
+    <!-- Top bar -->
+    <div class='row bg-light text-white p-2'>
+        <div class="col-4">
+            <img src="../static/images/SKI_bar2.png" height='60' class='ml-2' >
+        </div>
+        <div class="col-6 align-middle">
+            <form action="/searchresult" method="POST" >
+                <input type="text" name=tag placeholder="Search Problem and Idea" class="form-control w-50  mx-auto mt-3">
+            </form>
+        </div>
+        <div class="float-right text-right mt-2 col-2">
+            <a href="/myaccount/{{user.id}}">
+                <i class="fas fa-house-user m-2 text-secondary" style='font-size:30px'></i>
+            </a>
+            <a href="/logout">
+                <i class="fas fa-sign-out-alt m-2 text-secondary" style='font-size:30px'></i>
+            </a>
+        </div>
+    </div>
+    <!-- Left menu bar -->
+    <div class="row" style='height: 100vh;'>
+        <div class='card col-2 bg-secondary rounded-0'>
+            <div class="row">
+                <img src="../static/images/{{user.avator}}" alt="" class='rounded-circle mx-auto d-block mt-3' height=70 width="70">
+            </div>
+            <div class="row text-center">
+                <a href="/editProf" class='text-white col-12'>
+                    <strong style='font-size:25px' class=''>
+                        {{signin.uname}}<br>
+                    </strong>
+                </a>
+                <a href="/check_p" class='btn text-white col-12 mt-3'>Problem</a><br>
+                <a href="/check_i" class='btn text-white col-12'>Idea</a><br>
+                <a href="/check_c" class='btn text-white col-12'>Comment</a><br>
+                <a href="/check_u" class='btn text-white col-12'>User</a><br>
+            </div>
+        </div>
+        <!-- main screen -->
+        <div class='col-10 bg-light'>
+            <table class="table table-striped" style="table-layout: fixed;">
+                <tr>
+                    <th  class='text-center' colspan=2 style="width: 150px;">User name</th>
+                    <th style="width: 200px;">Idea id</th>
+                    <th >Comment</th>
+                </tr>
+                {% for c in comment %}
+                    <tr>
+                        <td class="align-middle">
+                            <a href="/myaccount/{{c.u_id}}" >
+                                <img src="../static/images/{{c.avator}}" alt="" class='rounded-circle float-right' height="40" width="40">
+                            </a>
+                        </td>
+                        <td class="align-middle">
+                            <a href="/myaccount/{{c.u_id}}" class="float-left">
+                                {{c.uname}}
+                            </a>
+                        </td>
+                        <td class="align-middle" style="word-wrap: break-word; font-size: 16px;">
+                                {{c.i_id}}
+                        </td>
+                        <td class="align-middle mx-auto" style="word-wrap: break-word; font-size: 16px;">
+                            {{c.comment}}<br>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

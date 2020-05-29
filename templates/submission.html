@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+{% block title %}
+    <title>SUBMISSION</title>
+{% endblock %}
+
+{% block body %}
+    <!-- Top bar -->
+    <div class='row bg-light text-white p-2'>
+        <div class="col-4">
+            <img src="../static/images/SKI_bar2.png" height='60' class='ml-2' >
+        </div>
+        <div class="col-6 align-middle">
+            <form action="/searchresult" method="POST" >
+                <input type="text" name=tag placeholder="#Search Problem and Idea" class="form-control w-50  mx-auto mt-3">
+            </form>
+        </div>
+        <div class="float-right text-right mt-2 col-2">
+            <a href="/myaccount/{{user.id}}">
+                <i class="fas fa-house-user m-2 text-secondary" style='font-size:30px'></i>
+            </a>
+            <a href="/logout">
+                <i class="fas fa-sign-out-alt m-2 text-secondary" style='font-size:30px'></i>
+            </a>
+        </div>
+    </div>
+    <!-- Left menu bar -->
+    <div class="row" style='height: 100vh;'>
+        <div class='card col-2 bg-secondary rounded-0'>
+            <div class="row">
+                <img src="../static/images/{{user.avator}}" alt="" class='rounded-circle mx-auto d-block mt-3' height=70 width="70">
+            </div>
+            <div class="row text-center">
+                <a href="/editProf" class='text-white col-12'>
+                    <strong style='font-size:25px' class=''>
+                        {{signin.uname|upper}}<br>
+                    </strong>
+                </a>
+                <a href="/timeline" class='btn text-white col-12 mt-3'>Timeline</a><br>
+                <a href="/submission" class='btn text-white col-12'>Submit Problem</a><br>
+                <a href="/ski" class='btn text-white col-12'>About SKI</a><br>
+            </div>
+        </div>
+        <!-- main screen -->
+        <div class='card col-10 bg-light rounded-0'>
+            <div class='mx-auto text-center mt-5'>
+                <h1 class="text-secondary">Problem Submission</h1><br>
+                <form action="/submission" method="post">
+                    <input type="text" name='p_title' placeholder="#Problem Title" class="form-control w-100 mx-auto mb-4 "><br>
+                    <textarea name="p_main" id="" cols="50" rows="10" placeholder="Share your problem." class="form-control w-100 mx-auto mb-4 "></textarea>
+                    <input type="submit" value='SUBMIT' class="btn btn-secondary btn-block">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
