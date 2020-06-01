@@ -33,7 +33,7 @@ def index():
                 db.session.add(user)
                 db.session.commit()
                 session['id'] = signup.id
-                l_date = Logindate(logindate = datetime.now(), signin_id = signup.id)
+                l_date = Logindate(logindate = datetime.day(), signin_id = signup.id)
                 db.session.add(l_date)
                 db.session.commit()
                 return redirect('/timeline')
@@ -352,6 +352,22 @@ def s_comment(u_id):
         comment_imfo = Comment.query.filter_by(u_id=u_id).order_by(Comment.id.desc()).all()
         return render_template('s_comment.html', user=user, signin=signin, ui=user_imfo, ci=comment_imfo)
 
+
+# @app.route('/check_d', methods=['POST','GET'])
+# def check_d():
+#     if 'id' in session:
+#         user_id = session['id']
+#         user = User.query.filter_by(signin_id=user_id).first()
+#         signin = Signin.query.filter_by(id=user_id).first()
+#         # history_login = Logindate.query.order_by(Logindate.id.desc()).all()
+#         if request.method == 'POST':
+#             user_date = request.form['date']
+#             print(user_date)
+#             logdate = Logindate.query.filter(datetime.strptime(Logindate.logindate, '%Y-%m-%d') == user_date).all()
+#             print(logdate)
+#             return render_template('check_d.html', user=user, signin=signin, logdate=logdate)
+#         else:
+#             return render_template('check_d.html', user=user, signin=signin)
 
 
 # from flask import  make_response

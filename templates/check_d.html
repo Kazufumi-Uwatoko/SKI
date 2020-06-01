@@ -31,7 +31,7 @@
             <div class="row text-center">
                 <a href="/editProf" class='text-white col-12'>
                     <strong style='font-size:25px' class=''>
-                        {{signin.uname|upper}}<br>
+                        {{signin.uname}}<br>
                     </strong>
                 </a>
                 <a href="/check_p" class='btn text-white col-12 mt-3'>Problem</a><br>
@@ -43,23 +43,25 @@
         </div>
         <!-- main screen -->
         <div class='col-10 bg-light'>
-            <div class='card mx-auto'>
-                <div class='row'>
-                    <img src="../static/images/{{ui.avator}}" alt="" height=200 width="200" class='mt-4 rounded-circle btn mx-auto'><br>
-                </div>
-                <h1 class="text-center">{{ui.uname|upper}}</h1>
-                <h1 class="text-center">Major: {{ui.major}}</h1>
-                <table class="table w-25 text-center mx-auto mt-4">
+            <form action="/check_d" method='post'>
+                <input type='date' name='date' class="form-control w-50  mx-auto mt-3" >
+                <input type="submit" value='Search' class="btn btn-secondary">
+            </form>
+            <table class="table table-striped w-50 mx-auto mt-5" style="table-layout: fixed;">
+                <tr>
+                    <th style="width: 200px;">Login Date</th>
+                    <th >User Name</th>
+                </tr>
+                {% for d in logdate %}
                     <tr>
-                        <th>Login History</th>
+                        <td class="align-middle" style="word-wrap: break-word; font-size: 16px;">{{d.logindate}}</td>
+                        <td class="align-middle mx-auto" style="word-wrap: break-word; font-size: 16px;">
+                            {{d.signin_id}}<br>
+                        </td>
                     </tr>
-                    {% for h in hl %}
-                        <tr>
-                            <td>{{h.logindate}}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
+                {% endfor %}
+            </table>
+
         </div>
     </div>
 {% endblock %}

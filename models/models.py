@@ -1,12 +1,29 @@
 from datetime import datetime
 from SKI.database import db
 
+
+# class Activity(db.Model):
+#     __tablename__ = 'activity'
+#     id = db.Column(db.Integer,primary_key=True)
+#     logindate_id = db.Column(db.Integer, db.ForeignKey('logindate.id'),nullable=False)
+#     signin_id = db.Column(db.Integer, db.ForeignKey('signin.id'), nullable=False)
+#     p_id = db.Column(db.Integer, db.ForeignKey('problem.id'), nullable=False)
+#     i_id = db.Column(db.Integer, db.ForeignKey('idea.id'), nullable=False)
+#     c_id = db.Column(db.Integer, db.ForeignKey('comment.id'), nullable=False)
+#     logindate = db.relationship('Logindate', back_populates='activity')
+#     signin = db.relationship('Signin', back_populates='activity')
+#     problem = db.relationship('Problem', back_populates='activity')
+#     idea = db.relationship('Idea', back_populates='activity')
+#     comment = db.relationship('Comment', back_populates='activity')
+
+
 class Logindate(db.Model):
     __tablename__= 'logindate'
     id = db.Column(db.Integer,primary_key=True)
     logindate = db.Column(db.DateTime, nullable=False)
     signin_id = db.Column(db.Integer, db.ForeignKey('signin.id'), nullable=False)
     signin = db.relationship('Signin', back_populates='logindate')
+
 
 class Signin(db.Model):
     __tablename__ = 'signin'
